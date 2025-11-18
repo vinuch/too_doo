@@ -25,6 +25,17 @@ const config = defineConfig({
                 secondary: {
                     value: "#41245F"
                 },
+                grey: {
+                    100: { value: "#F7F7F7" }
+                },
+                borders: {
+                    subtle: { value: "#CDD6E9" },
+                    light: { value: "#EEF1F9" },
+                },
+
+                grayBg: {
+                    value: "#F7F7F7"
+                },
             },
             fonts: {
                 body: { value: "var(--font-jakarta-sans), sans-serif" },

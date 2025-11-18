@@ -1,3 +1,4 @@
+import Nav from "@/components/Nav/Nav";
 import { Box } from "@chakra-ui/react";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <Box bg="secondary">
+    <Box>
+      <Nav />
       Afdeling kwaliteit
     </Box>
   );
