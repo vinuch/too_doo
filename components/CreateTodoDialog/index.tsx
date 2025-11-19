@@ -5,7 +5,7 @@ import { AddCircle, Calendar, Flag, ProfileCircle, Status, Stickynote, TaskSquar
 import StatusSelect from "./StatusSelect";
 import PrioritySelect from "./PrioritySelect";
 import AssigneeSelect from "./AssigneeSelect";
-import { useState } from "react";
+import { JSX, ReactNode, useState } from "react";
 import { useTodos } from "@/contexts/TodoContext";
 import { toaster } from "../ui/toaster";
 
@@ -25,7 +25,11 @@ export type Todo = {
     priority: "urgent" | "important" | "normal" | "low";
     description: string
 }
-export default function CreateTodo() {
+
+type CreateTodoProps = {
+    trigger: ReactNode
+}
+export default function CreateTodo({ trigger }: CreateTodoProps) {
     const { addTodo } = useTodos();
     const [todo, setTodo] = useState<Todo>({
         id: "",
@@ -43,7 +47,8 @@ export default function CreateTodo() {
             size={"lg"}
         >
             <Dialog.Trigger asChild>
-                <Button bg={"primary"} rounded={"10px"}><AddCircle size="32" color="#FFFFFF" />Add Task</Button>
+
+                {trigger}
             </Dialog.Trigger>
             <Portal>
                 <Dialog.Backdrop />

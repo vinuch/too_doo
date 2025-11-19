@@ -10,6 +10,30 @@ type PrioritySelectProps = {
     setTodo: (value: SetStateAction<Todo>) => void;
 }
 
+type Priority = "urgent" | "important" | "normal" | "low";
+
+export const PRIORITY_MAP: Record<Priority, {
+    label: string;
+    color: string;
+}> = {
+    urgent: {
+        label: "Urgent",
+        color: "#FF515D",
+    },
+    important: {
+        label: "Important",
+        color: "#F6BE38",
+    },
+    normal: {
+        label: "Normal",
+        color: "#75C5C1",
+    },
+    low: {
+        label: "Low",
+        color: "#BAC1CC",
+    },
+};
+
 export default function PrioritySelect({ todo, setTodo }: PrioritySelectProps) {
     const [selectedStatus, setSelectedStatus] = useState<Priority>(todo.priority);
     const [selectedPriorityProps, setSelectedPriorityProps] = useState<{
@@ -17,29 +41,7 @@ export default function PrioritySelect({ todo, setTodo }: PrioritySelectProps) {
         color: string;
     } | undefined>();
 
-    type Priority = "urgent" | "important" | "normal" | "low";
 
-    const PRIORITY_MAP: Record<Priority, {
-        label: string;
-        color: string;
-    }> = {
-        urgent: {
-            label: "Urgent",
-            color: "#FF515D",
-        },
-        important: {
-            label: "Important",
-            color: "#F6BE38",
-        },
-        normal: {
-            label: "Normal",
-            color: "#75C5C1",
-        },
-        low: {
-            label: "Low",
-            color: "#BAC1CC",
-        },
-    };
 
     useEffect(() => {
         if (selectedStatus && PRIORITY_MAP[selectedStatus]) {

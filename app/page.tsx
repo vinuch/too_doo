@@ -1,11 +1,36 @@
+'use client'
+
 import CreateTodo from "@/components/CreateTodoDialog";
 import Nav from "@/components/Nav/Nav";
 import Sidebar from "@/components/Sidebar";
+import { TableView } from "@/components/TableView";
+import { CardView } from "@/components/CardView";
 import { Box, Button, ButtonGroup, Flex, IconButton, Input, InputGroup, Span, Stack, Text } from "@chakra-ui/react";
 import { AddCircle, ArrowCircleLeft2, Calendar, ExportCurve, RowHorizontal, RowVertical, SearchNormal1, Sort, Status, TaskSquare, TickCircle } from "iconsax-reactjs";
 import Image from "next/image";
+import { useMemo, useState } from "react";
+import { useTodos } from "@/contexts/TodoContext";
 
 export default function Home() {
+
+  const [view, setView] = useState('table')
+  const { todos } = useTodos();
+
+
+  const todosToDo = useMemo(
+    () => todos.filter(t => t.status === "to_do"),
+    [todos]
+  );
+
+  const todosInProgress = useMemo(
+    () => todos.filter(t => t.status === "in_progress"),
+    [todos]
+  );
+
+  const todosComplete = useMemo(
+    () => todos.filter(t => t.status === "complete"),
+    [todos]
+  );
   return (
     <Box>
       <Flex alignItems={"start"}>
@@ -13,7 +38,7 @@ export default function Home() {
         <Stack w={"full"}>
           <Nav />
 
-          <Box mx={"6"} my={"5"} bg={"white"} rounded={"10px"} h={"80vh"}>
+          <Box mx={"6"} my={"5"} bg={"white"} rounded={"10px"} h={"80vh"} overflowY={"scroll"}>
 
 
             <Box divideY="1px" divideColor="borders.subtle">
@@ -36,7 +61,7 @@ export default function Home() {
                   </IconButton>
                   <Button bg={"secondary"} rounded={"10px"}><ExportCurve size="32" color="#FFFFFF" />Export xlsx</Button>
 
-                  <CreateTodo />
+                  <CreateTodo trigger={<Button bg={"primary"} rounded={"10px"}><AddCircle size="32" color="#FFFFFF" />Add Task</Button>} />
                 </Flex>
 
               </Flex>
@@ -51,12 +76,12 @@ export default function Home() {
 
 
                   <ButtonGroup bg={"#fff"} py={"2"} px={"3"} rounded={"10px"}>
-                    <IconButton bg="grayBg" p={"2"} rounded={"10px"}><RowHorizontal size="32" color="#7988A9" /></IconButton>
-                    <IconButton bg="primary" p={"2"} rounded={"10px"}><RowVertical size="32" color="#FFFFFF" /></IconButton>
+                    <IconButton bg={view === 'card' ? 'primary' : 'grayBg'} p={"2"} rounded={"10px"} onClick={() => setView('card')}><RowHorizontal size="32" color={view === 'card' ? '#FFFFFF' : '#7988A9'} /></IconButton>
+                    <IconButton bg={view === 'table' ? 'primary' : 'grayBg'} p={"2"} rounded={"10px"} onClick={() => setView('table')}><RowVertical size="32" color={view === 'table' ? '#FFFFFF' : '#7988A9'} /></IconButton>
                   </ButtonGroup>
                 </Flex>
 
-                <Flex alignItems={"center"} bg={"#F7F7F7"} p={"2"} gap="3" rounded={"6px"}>
+                <Flex alignItems={"center"} bg={"#F7F7F7"} p={"2"} gap="3" rounded={"6px"} mb={"4"}>
                   <Button bg={"white"} w={"180px"} px={"1"}>
                     <Flex justifyContent={"space-between"} w={"full"} >
                       <Flex alignItems={"center"} gap={"3"}>
@@ -65,7 +90,7 @@ export default function Home() {
                         <Text fontSize={"14px"} color={"#464B50"}>To Do</Text>
                       </Flex>
 
-                      <Span bg={"#F9F3FF"} p={"1"} color={"#464B50"} rounded={"6px"} fontSize={"sm"}>(20)</Span>
+                      <Span bg={"#F9F3FF"} p={"1"} color={"#464B50"} rounded={"6px"} fontSize={"sm"}>({todosToDo.length})</Span>
                     </Flex>
 
                   </Button>
@@ -77,7 +102,7 @@ export default function Home() {
                         <Text fontSize={"14px"} color={"#464B50"}>In Progress</Text>
                       </Flex>
 
-                      <Span bg={"#FBF4E4"} p={"1"} color={"#464B50"} rounded={"6px"} fontSize={"sm"}>(20)</Span>
+                      <Span bg={"#FBF4E4"} p={"1"} color={"#464B50"} rounded={"6px"} fontSize={"sm"}>({todosInProgress.length})</Span>
                     </Flex>
 
                   </Button>
@@ -89,11 +114,21 @@ export default function Home() {
                         <Text fontSize={"14px"} color={"#464B50"}>Completed</Text>
                       </Flex>
 
-                      <Span bg={"#E9F5F7"} p={"1"} color={"#464B50"} rounded={"6px"} fontSize={"sm"}>(20)</Span>
+                      <Span bg={"#E9F5F7"} p={"1"} color={"#464B50"} rounded={"6px"} fontSize={"sm"}>({todosComplete.length})</Span>
                     </Flex>
 
                   </Button>
                 </Flex>
+
+
+                {
+                  view === 'table' ? (
+                    <TableView />
+                  ) : (
+                    <CardView />
+                  )
+                }
+
               </Box>
             </Box>
 
