@@ -1,14 +1,16 @@
 'use client'
 import { Button, Flex, Icon, Input, Popover, Portal, Text, Box, InputGroup, Avatar, Span } from "@chakra-ui/react"
 import { Flag, SearchNormal1, Status, TaskSquare, TickCircle } from "iconsax-reactjs"
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
+import { Person, Todo } from ".";
 
-type Person = {
-    id: number;
-    name: string;
-    img: string;
+
+
+type AssigneeSelectProps = {
+    todo: Todo;
+    setTodo: (value: SetStateAction<Todo>) => void;
 }
-export default function AssigneeSelect() {
+export default function AssigneeSelect({ todo, setTodo }: AssigneeSelectProps) {
     const [selectedAssignees, setSelectedAssignees] = useState<Person[]>([]);
 
 
@@ -42,7 +44,9 @@ export default function AssigneeSelect() {
 
     ]
 
-
+    useEffect(() => {
+        setTodo({ ...todo, assigned_to: selectedAssignees })
+    }, [selectedAssignees])
 
     return (
         <Popover.Root>

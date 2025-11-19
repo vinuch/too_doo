@@ -5,6 +5,8 @@ import "./globals.css";
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import { ChakraProvider } from "@chakra-ui/react";
 import system from "@/theme"; // import the fixed system
+import { TodoProvider } from "@/contexts/TodoContext";
+import { Toaster, toaster } from "@/components/ui/toaster"
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -21,7 +23,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" >
       <body className={`${jakarta.variable} antialiased`}>
         <ChakraProvider value={system}>
-          {children}
+          <TodoProvider>
+            <Toaster />
+            {children}
+
+          </TodoProvider>
         </ChakraProvider>
       </body>
     </html>

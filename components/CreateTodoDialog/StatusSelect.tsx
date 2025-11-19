@@ -2,9 +2,17 @@
 
 import { Button, Flex, Input, Popover, Portal, Text } from "@chakra-ui/react"
 import { Status, TaskSquare, TickCircle } from "iconsax-reactjs"
-import { JSX, useEffect, useState } from "react";
+import { JSX, SetStateAction, useEffect, useState } from "react";
+import { Todo } from ".";
 
-export default function StatusSelect() {
+
+type StatusSelectProps = {
+    todo: Todo;
+    setTodo: (value: SetStateAction<Todo>) => void;
+}
+
+
+export default function StatusSelect({ todo, setTodo }: StatusSelectProps) {
     const [selectedStatus, setSelectedStatus] = useState<Status>("to_do");
     const [selectedStatusProps, setSelectedStatusProps] = useState({
         label: "To Do",
@@ -41,6 +49,7 @@ export default function StatusSelect() {
             setSelectedStatusProps(STATUS_MAP[selectedStatus]);
 
         }
+        setTodo({ ...todo, status: selectedStatus })
     }, [selectedStatus]);
 
     return (

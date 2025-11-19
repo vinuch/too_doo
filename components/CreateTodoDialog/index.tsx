@@ -1,11 +1,41 @@
+'use client'
+
 import { Box, Button, CloseButton, Dialog, Flex, Icon, Input, Portal, Text, Textarea } from "@chakra-ui/react";
 import { AddCircle, Calendar, Flag, ProfileCircle, Status, Stickynote, TaskSquare } from "iconsax-reactjs";
 import StatusSelect from "./StatusSelect";
 import PrioritySelect from "./PrioritySelect";
 import AssigneeSelect from "./AssigneeSelect";
+import { useState } from "react";
+import { useTodos } from "@/contexts/TodoContext";
+import { toaster } from "../ui/toaster";
 
+
+export type Person = {
+    id: number;
+    name: string;
+    img: string;
+}
+
+export type Todo = {
+    id: string,
+    name: string
+    status: "to_do" | "in_progress" | "complete"
+    date: string
+    assigned_to: Person[]
+    priority: "urgent" | "important" | "normal" | "low";
+    description: string
+}
 export default function CreateTodo() {
-
+    const { addTodo } = useTodos();
+    const [todo, setTodo] = useState<Todo>({
+        id: "",
+        name: "",
+        status: "to_do",
+        date: "",
+        assigned_to: [],
+        priority: "urgent",
+        description: "",
+    })
     return (
         <Dialog.Root
             placement={"center"}
@@ -23,7 +53,7 @@ export default function CreateTodo() {
                             {/* <Dialog.Title>Dialog Title</Dialog.Title> */}
                         </Dialog.Header>
                         <Dialog.Body>
-                            <Input type={"text"} placeholder="Task Name" fontSize={"30px"} p={"2"} outline={"none"} mb={"5"} border={"none"} />
+                            <Input type={"text"} placeholder="Task Name" fontSize={"30px"} p={"2"} outline={"none"} mb={"5"} border={"none"} onChange={e => setTodo({ ...todo, name: e.target.value })} />
 
                             <Flex justifyContent={"space-between"} w={"45%"} mb={"3"}>
                                 <Flex alignItems={"center"} gapX={"2"} w={"100px"}>
@@ -36,7 +66,7 @@ export default function CreateTodo() {
 
                                 <Box w={"120px"} >
 
-                                    <StatusSelect />
+                                    <StatusSelect todo={todo} setTodo={setTodo} />
                                 </Box>
                             </Flex>
                             <Flex justifyContent={"space-between"} w={"45%"} mb={"3"}>
@@ -64,11 +94,11 @@ export default function CreateTodo() {
                                 </Flex>
 
                                 <Box w={"120px"}>
-                                    <AssigneeSelect />
+                                    <AssigneeSelect todo={todo} setTodo={setTodo} />
                                 </Box>
                             </Flex>
 
-                            <PrioritySelect />
+                            <PrioritySelect todo={todo} setTodo={setTodo} />
 
                             <Flex mb={"3"} justifyContent={"space-between"} w={"45%"}>
                                 <Flex alignItems={"center"} gapX={"2"} w={"100px"}>
@@ -83,14 +113,24 @@ export default function CreateTodo() {
                             </Flex>
 
 
-                            <Textarea placeholder="Write something or type" minH={"150px"} bg={"grayBg"} borderWidth={"1px"} borderColor={"#EEF1F9"} outline={"none"} mt={"2"} />
+                            <Textarea placeholder="Write something or type" minH={"150px"} bg={"grayBg"} borderWidth={"1px"} borderColor={"#EEF1F9"} outline={"none"} mt={"2"} onChange={e => setTodo({ ...todo, description: e.target.value })} />
 
                         </Dialog.Body>
                         <Dialog.Footer>
-                            <Dialog.ActionTrigger asChild>
+                            {/* <Dialog.ActionTrigger asChild>
                                 <Button bg={"primary"} px={"10"}>Create Task</Button>
-                            </Dialog.ActionTrigger>
+                            </Dialog.ActionTrigger> */}
                             {/* <Button>Save</Button> */}
+                            <Button bg={"primary"} px={"10"} onClick={() => {
+                                //    console.log(todo) 
+                                addTodo({ ...todo, id: crypto.randomUUID() })
+                                toaster.create({
+                                    description: "Todo created successfully",
+                                    type: "info",
+                                })
+
+                            }}>Create Task</Button>
+
                         </Dialog.Footer>
                         <Dialog.CloseTrigger asChild>
                             <CloseButton size="sm" />

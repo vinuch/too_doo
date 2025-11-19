@@ -1,10 +1,17 @@
 'use client'
 import { Button, Flex, Icon, Input, Popover, Portal, Text, Box } from "@chakra-ui/react"
 import { Flag, Status, TaskSquare, TickCircle } from "iconsax-reactjs"
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
+import { Todo } from ".";
 
-export default function PrioritySelect() {
-    const [selectedStatus, setSelectedStatus] = useState<Priority>();
+
+type PrioritySelectProps = {
+    todo: Todo;
+    setTodo: (value: SetStateAction<Todo>) => void;
+}
+
+export default function PrioritySelect({ todo, setTodo }: PrioritySelectProps) {
+    const [selectedStatus, setSelectedStatus] = useState<Priority>(todo.priority);
     const [selectedPriorityProps, setSelectedPriorityProps] = useState<{
         label: string;
         color: string;
@@ -39,6 +46,9 @@ export default function PrioritySelect() {
             setSelectedPriorityProps(PRIORITY_MAP[selectedStatus]);
 
         }
+
+        setTodo({ ...todo, priority: selectedStatus })
+
     }, [selectedStatus]);
 
 
