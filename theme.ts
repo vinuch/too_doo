@@ -26,7 +26,8 @@ const config = defineConfig({
                     value: "#41245F"
                 },
                 grey: {
-                    100: { value: "#F7F7F7" }
+                    100: { value: "#F7F7F7" },
+                    200: { value: "#292D32" },
                 },
                 borders: {
                     subtle: { value: "#CDD6E9" },

@@ -17,7 +17,8 @@ export default function Nav() {
             justifyContent={"space-between"}
             alignItems={"center"}
             gap={"4"}
-            mb={"4"}>
+
+            w={"full"}>
 
             <SearchBar />
 
