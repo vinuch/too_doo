@@ -1,3 +1,4 @@
+import CreateTodo from "@/components/CreateTodoDialog";
 import Nav from "@/components/Nav/Nav";
 import Sidebar from "@/components/Sidebar";
 import { Box, Button, ButtonGroup, Flex, IconButton, Input, InputGroup, Stack, Text } from "@chakra-ui/react";
@@ -34,7 +35,8 @@ export default function Home() {
                     <Calendar size="32" color="#292D32" />
                   </IconButton>
                   <Button bg={"secondary"} rounded={"10px"}><ExportCurve size="32" color="#FFFFFF" />Export xlsx</Button>
-                  <Button bg={"primary"} rounded={"10px"}><AddCircle size="32" color="#FFFFFF" />Add Task</Button>
+
+                  <CreateTodo />
                 </Flex>
 
               </Flex>
