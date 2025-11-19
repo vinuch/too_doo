@@ -2,6 +2,7 @@ import { Box, Button, CloseButton, Dialog, Flex, Icon, Input, Portal, Text, Text
 import { AddCircle, Calendar, Flag, ProfileCircle, Status, Stickynote, TaskSquare } from "iconsax-reactjs";
 import StatusSelect from "./StatusSelect";
 import PrioritySelect from "./PrioritySelect";
+import AssigneeSelect from "./AssigneeSelect";
 
 export default function CreateTodo() {
 
@@ -63,7 +64,7 @@ export default function CreateTodo() {
                                 </Flex>
 
                                 <Box w={"120px"}>
-                                    <Button variant="plain" p={"0"} color={"#BAC1CC"} fontWeight={"400"}>Select Assignee</Button>
+                                    <AssigneeSelect />
                                 </Box>
                             </Flex>
 
