@@ -57,7 +57,7 @@ export function CardView() {
                 <Box p={"2"}>
                     {
                         todosToDo.map(item => (
-                            <CreateTodo trigger={<TaskCard todo={item} />} todo={item} />
+                            <CreateTodo key={`${item.id}-${item.name}`} trigger={<TaskCard todo={item} />} todo={item} />
 
                         ))
                     }
@@ -98,7 +98,7 @@ export function CardView() {
                 <Box p={"2"}>
                     {
                         todosInProgress.map(item => (
-                            <CreateTodo trigger={<TaskCard todo={item} />} todo={item} />
+                            <CreateTodo key={`${item.id}-${item.name}`} trigger={<TaskCard todo={item} />} todo={item} />
 
                         ))
                     }
@@ -140,7 +140,7 @@ export function CardView() {
                 <Box p={"2"}>
                     {
                         todosComplete.map(item => (
-                            <CreateTodo trigger={<TaskCard todo={item} />} todo={item} />
+                            <CreateTodo key={`${item.id}-${item.name}`} trigger={<TaskCard todo={item} />} todo={item} />
 
                         ))
                     }

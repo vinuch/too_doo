@@ -5,7 +5,7 @@ import { AddCircle, Calendar, Flag, ProfileCircle, Status, Stickynote, TaskSquar
 import StatusSelect from "./StatusSelect";
 import PrioritySelect from "./PrioritySelect";
 import AssigneeSelect from "./AssigneeSelect";
-import { JSX, ReactNode, useState } from "react";
+import { JSX, ReactNode, useRef, useState } from "react";
 import { useTodos } from "@/contexts/TodoContext";
 import { toaster } from "../ui/toaster";
 import { Example } from "../DatePicker";
@@ -20,6 +20,7 @@ export type Person = {
 
 export type Todo = {
     id: string,
+    created_at: string
     name: string
     status: "to_do" | "in_progress" | "complete"
     date: string
@@ -34,11 +35,14 @@ type CreateTodoProps = {
 }
 export default function CreateTodo({ trigger, todo: td }: CreateTodoProps) {
     const { addTodo, updateTodo } = useTodos();
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [date, setDate] = useState<Date | null>(null);
     const [todo, setTodo] = useState<Todo>(td || {
         id: "",
         name: "",
         status: "to_do",
         date: "",
+        created_at: "",
         assigned_to: [],
         priority: "urgent",
         description: "",
@@ -87,9 +91,12 @@ export default function CreateTodo({ trigger, todo: td }: CreateTodoProps) {
                                     <Text>Dates</Text>
                                 </Flex>
 
-                                <Box w={"120px"} textAlign={"left"}>
-                                    {/* <Button variant="plain" p={"0"} color={"#BAC1CC"} fontWeight={"400"}>00 / 00 / 0000</Button> */}
-                                    <TestDatePicker />
+                                <Box w={"140px"} textAlign={"left"}>
+                                    {/* <Button variant="plain" p={"0"} color={"#BAC1CC"} fontWeight={"400"} onClick={() => inputRef.current?.showPicker?.()}>00 / 00 / 0000</Button> */}
+                                    {/* <TestDatePicker /> */}
+                                    <Input type="date" border={"none"} outline={"none"}
+                                        defaultValue={todo.date}
+                                        onChange={(e) => setTodo({ ...todo, date: e.target.value })} />
 
                                 </Box>
 
@@ -146,7 +153,7 @@ export default function CreateTodo({ trigger, todo: td }: CreateTodoProps) {
                                     <Button bg={"primary"} px={"10"} onClick={
                                         () => {
                                             //    console.log(todo) 
-                                            addTodo({ ...todo, id: crypto.randomUUID() })
+                                            addTodo({ ...todo, id: crypto.randomUUID(), created_at: new Date().toISOString() })
                                             toaster.create({
                                                 description: "Todo created successfully",
                                                 type: "info",

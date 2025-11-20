@@ -13,7 +13,13 @@ type TaskCardProps = {
 }
 
 export default function TaskCard({ todo, ...props }: TaskCardProps) {
-
+    const formatDate = (dateStr: string) => {
+        const d = new Date(dateStr);
+        const day = String(d.getDate()).padStart(2, "0");
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const year = d.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
     return (
         <Box cursor={"pointer"} bg={"white"} rounded={"10px"} p={"4"} mb={"3"} {...props}>
             <Text color={"#464B50"} fontWeight={600} fontSize={"14px"} mb={2}>{todo.name}</Text>
@@ -23,7 +29,7 @@ export default function TaskCard({ todo, ...props }: TaskCardProps) {
                     <Calendar size="20" color="#BAC1CC" />
                 </Icon>
 
-                <Text fontWeight={400} fontSize={"14px"}>04/06/2024 - 16/06/2014</Text>
+                <Text fontWeight={400} fontSize={"14px"}>{formatDate(todo.created_at || new Date().toISOString())} - {formatDate(todo.date)}</Text>
 
             </Flex>
             <Flex alignItems={'center'} gap={"3"} mb={"3"}>
