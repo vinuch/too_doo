@@ -13,7 +13,7 @@ type StatusSelectProps = {
 
 
 export default function StatusSelect({ todo, setTodo }: StatusSelectProps) {
-    const [selectedStatus, setSelectedStatus] = useState<Status>("to_do");
+    const [selectedStatus, setSelectedStatus] = useState<Status>(todo.status);
     const [selectedStatusProps, setSelectedStatusProps] = useState({
         label: "To Do",
         color: "#CFB7E8",

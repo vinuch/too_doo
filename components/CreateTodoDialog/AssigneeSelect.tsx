@@ -11,7 +11,7 @@ type AssigneeSelectProps = {
     setTodo: (value: SetStateAction<Todo>) => void;
 }
 export default function AssigneeSelect({ todo, setTodo }: AssigneeSelectProps) {
-    const [selectedAssignees, setSelectedAssignees] = useState<Person[]>([]);
+    const [selectedAssignees, setSelectedAssignees] = useState<Person[]>(todo.assigned_to || []);
 
 
 

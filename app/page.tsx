@@ -14,23 +14,8 @@ import { useTodos } from "@/contexts/TodoContext";
 export default function Home() {
 
   const [view, setView] = useState('table')
-  const { todos } = useTodos();
+  // const { todos } = useTodos();
 
-
-  const todosToDo = useMemo(
-    () => todos.filter(t => t.status === "to_do"),
-    [todos]
-  );
-
-  const todosInProgress = useMemo(
-    () => todos.filter(t => t.status === "in_progress"),
-    [todos]
-  );
-
-  const todosComplete = useMemo(
-    () => todos.filter(t => t.status === "complete"),
-    [todos]
-  );
   return (
     <Box>
       <Flex alignItems={"start"}>
@@ -81,44 +66,7 @@ export default function Home() {
                   </ButtonGroup>
                 </Flex>
 
-                <Flex alignItems={"center"} bg={"#F7F7F7"} p={"2"} gap="3" rounded={"6px"} mb={"4"}>
-                  <Button bg={"white"} w={"180px"} px={"1"}>
-                    <Flex justifyContent={"space-between"} w={"full"} >
-                      <Flex alignItems={"center"} gap={"3"}>
-                        <TaskSquare size="20px"
-                          color="#CFB7E8" variant="Bold" />
-                        <Text fontSize={"14px"} color={"#464B50"}>To Do</Text>
-                      </Flex>
 
-                      <Span bg={"#F9F3FF"} p={"1"} color={"#464B50"} rounded={"6px"} fontSize={"sm"}>({todosToDo.length})</Span>
-                    </Flex>
-
-                  </Button>
-                  <Button bg={"white"} w={"180px"} px={"1"}>
-                    <Flex justifyContent={"space-between"} w={"full"} >
-                      <Flex alignItems={"center"} gap={"3"}>
-                        <Status size="20px"
-                          color="#F6BE38" variant="Bold" />
-                        <Text fontSize={"14px"} color={"#464B50"}>In Progress</Text>
-                      </Flex>
-
-                      <Span bg={"#FBF4E4"} p={"1"} color={"#464B50"} rounded={"6px"} fontSize={"sm"}>({todosInProgress.length})</Span>
-                    </Flex>
-
-                  </Button>
-                  <Button bg={"white"} w={"180px"} px={"1"}>
-                    <Flex justifyContent={"space-between"} w={"full"} >
-                      <Flex alignItems={"center"} gap={"3"}>
-                        <TickCircle size="20px"
-                          color="#75C5C1" variant="Bold" />
-                        <Text fontSize={"14px"} color={"#464B50"}>Completed</Text>
-                      </Flex>
-
-                      <Span bg={"#E9F5F7"} p={"1"} color={"#464B50"} rounded={"6px"} fontSize={"sm"}>({todosComplete.length})</Span>
-                    </Flex>
-
-                  </Button>
-                </Flex>
 
 
                 {

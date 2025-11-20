@@ -8,6 +8,8 @@ import AssigneeSelect from "./AssigneeSelect";
 import { JSX, ReactNode, useState } from "react";
 import { useTodos } from "@/contexts/TodoContext";
 import { toaster } from "../ui/toaster";
+import { Example } from "../DatePicker";
+import TestDatePicker from "../DatePicker/TestDatePicker";
 
 
 export type Person = {
@@ -27,11 +29,12 @@ export type Todo = {
 }
 
 type CreateTodoProps = {
-    trigger: ReactNode
+    trigger: ReactNode;
+    todo?: Todo;
 }
-export default function CreateTodo({ trigger }: CreateTodoProps) {
-    const { addTodo } = useTodos();
-    const [todo, setTodo] = useState<Todo>({
+export default function CreateTodo({ trigger, todo: td }: CreateTodoProps) {
+    const { addTodo, updateTodo } = useTodos();
+    const [todo, setTodo] = useState<Todo>(td || {
         id: "",
         name: "",
         status: "to_do",
@@ -39,6 +42,7 @@ export default function CreateTodo({ trigger }: CreateTodoProps) {
         assigned_to: [],
         priority: "urgent",
         description: "",
+
     })
     return (
         <Dialog.Root
@@ -58,7 +62,7 @@ export default function CreateTodo({ trigger }: CreateTodoProps) {
                             {/* <Dialog.Title>Dialog Title</Dialog.Title> */}
                         </Dialog.Header>
                         <Dialog.Body>
-                            <Input type={"text"} placeholder="Task Name" fontSize={"30px"} p={"2"} outline={"none"} mb={"5"} border={"none"} onChange={e => setTodo({ ...todo, name: e.target.value })} />
+                            <Input type={"text"} placeholder="Task Name" fontSize={"30px"} p={"2"} outline={"none"} mb={"5"} border={"none"} value={todo.name} onChange={e => setTodo({ ...todo, name: e.target.value })} />
 
                             <Flex justifyContent={"space-between"} w={"45%"} mb={"3"}>
                                 <Flex alignItems={"center"} gapX={"2"} w={"100px"}>
@@ -87,6 +91,7 @@ export default function CreateTodo({ trigger }: CreateTodoProps) {
                                     <Button variant="plain" p={"0"} color={"#BAC1CC"} fontWeight={"400"}>00 / 00 / 0000</Button>
 
                                 </Box>
+                                <TestDatePicker />
 
                             </Flex>
                             <Flex justifyContent={"space-between"} w={"45%"} mb={"3"}>
@@ -118,7 +123,7 @@ export default function CreateTodo({ trigger }: CreateTodoProps) {
                             </Flex>
 
 
-                            <Textarea placeholder="Write something or type" minH={"150px"} bg={"grayBg"} borderWidth={"1px"} borderColor={"#EEF1F9"} outline={"none"} mt={"2"} onChange={e => setTodo({ ...todo, description: e.target.value })} />
+                            <Textarea placeholder="Write something or type" minH={"150px"} bg={"grayBg"} borderWidth={"1px"} borderColor={"#EEF1F9"} outline={"none"} mt={"2"} value={todo.description} onChange={e => setTodo({ ...todo, description: e.target.value })} />
 
                         </Dialog.Body>
                         <Dialog.Footer>
@@ -126,15 +131,31 @@ export default function CreateTodo({ trigger }: CreateTodoProps) {
                                 <Button bg={"primary"} px={"10"}>Create Task</Button>
                             </Dialog.ActionTrigger> */}
                             {/* <Button>Save</Button> */}
-                            <Button bg={"primary"} px={"10"} onClick={() => {
-                                //    console.log(todo) 
-                                addTodo({ ...todo, id: crypto.randomUUID() })
-                                toaster.create({
-                                    description: "Todo created successfully",
-                                    type: "info",
-                                })
+                            {
+                                td ? (
+                                    <Button bg={"primary"} px={"10"} onClick={() => {
+                                        //    console.log(todo) 
+                                        updateTodo({ ...todo })
+                                        toaster.create({
+                                            description: "Todo updated successfully",
+                                            type: "info",
+                                        })
 
-                            }}>Create Task</Button>
+                                    }}>Update Task</Button>
+                                ) : (
+                                    <Button bg={"primary"} px={"10"} onClick={
+                                        () => {
+                                            //    console.log(todo) 
+                                            addTodo({ ...todo, id: crypto.randomUUID() })
+                                            toaster.create({
+                                                description: "Todo created successfully",
+                                                type: "info",
+                                            })
+
+                                        }}>Create Task</Button>
+                                )
+                            }
+
 
                         </Dialog.Footer>
                         <Dialog.CloseTrigger asChild>
@@ -143,6 +164,6 @@ export default function CreateTodo({ trigger }: CreateTodoProps) {
                     </Dialog.Content>
                 </Dialog.Positioner>
             </Portal>
-        </Dialog.Root>
+        </Dialog.Root >
     )
 }
