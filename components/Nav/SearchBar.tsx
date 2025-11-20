@@ -3,7 +3,7 @@ import { CloseCircle, SearchNormal1 } from "iconsax-reactjs";
 import { IconImageButton } from "./IconImageBtn";
 
 export const SearchBar = () => (
-    <Flex gap="30px">
+    <Flex gap="30px" display={{ base: "none", md: "flex" }} >
 
         <Box borderRadius="10px" overflow="hidden" borderColor={"borders.subtle"} borderWidth={"2px"} >
 
@@ -13,7 +13,7 @@ export const SearchBar = () => (
             </InputGroup>
         </Box>
 
-        <Flex gap={"3"} alignItems={"center"} display={{ base: "none", md: "flex" }} >
+        <Flex gap={"3"} alignItems={"center"}  >
             <IconImageButton src="/1.png" />
             <IconImageButton src="/2.png" />
             <IconImageButton src="/3.png" />
