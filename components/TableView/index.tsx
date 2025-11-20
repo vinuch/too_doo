@@ -45,7 +45,7 @@ export function TableView() {
 
     return (
         <>
-            <Flex alignItems={"center"} bg={"#F7F7F7"} p={"2"} gap="3" rounded={"6px"} mb={"4"}>
+            <Flex alignItems={"center"} bg={"#F7F7F7"} p={"2"} gap="3" rounded={"6px"} mb={"4"} overflowX={"scroll"}>
                 <Button bg={"white"} w={"180px"} px={"1"}>
                     <Flex justifyContent={"space-between"} w={"full"} >
                         <Flex alignItems={"center"} gap={"3"}>
