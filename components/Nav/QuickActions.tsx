@@ -2,7 +2,7 @@ import { Button, Flex, IconButton } from "@chakra-ui/react";
 import { RxLink1 } from "react-icons/rx";
 
 export const QuickActions = () => (
-    <Flex alignItems={"center"} gap="4">
+    <Flex alignItems={"center"} gap="4" display={{ base: "none", md: "flex" }} >
 
         <Flex bg="grey.100" p="2" rounded="10px" gap="10px" borderWidth={"1px"} borderColor="borders.light" alignItems={"center"}>
             <Button bg="secondary" rounded="10px">
