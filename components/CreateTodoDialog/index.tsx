@@ -88,10 +88,10 @@ export default function CreateTodo({ trigger, todo: td }: CreateTodoProps) {
                                 </Flex>
 
                                 <Box w={"120px"} textAlign={"left"}>
-                                    <Button variant="plain" p={"0"} color={"#BAC1CC"} fontWeight={"400"}>00 / 00 / 0000</Button>
+                                    {/* <Button variant="plain" p={"0"} color={"#BAC1CC"} fontWeight={"400"}>00 / 00 / 0000</Button> */}
+                                    <TestDatePicker />
 
                                 </Box>
-                                <TestDatePicker />
 
                             </Flex>
                             <Flex justifyContent={"space-between"} w={"45%"} mb={"3"}>

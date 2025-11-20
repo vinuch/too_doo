@@ -1,3 +1,5 @@
+'use client'
+
 import { Todo } from "@/components/CreateTodoDialog";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
@@ -12,10 +14,19 @@ type TodoContextType = {
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
 export const TodoProvider = ({ children }: { children: ReactNode }) => {
-    const [todos, setTodos] = useState<Todo[]>(() => {
+    // const [todos, setTodos] = useState<Todo[]>(() => {
+    //     const saved = localStorage.getItem("todos");
+    //     return saved ? JSON.parse(saved) : []
+    // })
+
+    const [todos, setTodos] = useState<Todo[]>([]);
+
+    useEffect(() => {
         const saved = localStorage.getItem("todos");
-        return saved ? JSON.parse(saved) : []
-    })
+        if (saved) {
+            setTodos(JSON.parse(saved));
+        }
+    }, []);
 
     useEffect(() => {
         localStorage.setItem("todos", JSON.stringify(todos));
