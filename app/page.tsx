@@ -51,7 +51,7 @@ export default function Home() {
 
               </Flex>
               <Box p={"5"}>
-                <Flex justifyContent={"space-between"} alignItems={"center"} bg={"#E9F5F7"} p={"2"} rounded={"6px"} mb={"4"}>
+                <Flex justifyContent={"space-between"} overflowX={"scroll"} alignItems={"center"} bg={"#E9F5F7"} p={"2"} rounded={"6px"} mb={"4"}>
                   <Box borderRadius="10px" overflow="hidden">
                     <InputGroup startAddon={<SearchNormal1 size={14} color="#6C7278" />}>
                       <Input type="text" maxW={"300px"} bg={"#fff"} rounded={"10px"} border={"none"} placeholder="Search for To-Do" />
