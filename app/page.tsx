@@ -32,7 +32,7 @@ export default function Home() {
                   <IconButton borderWidth={"1px"} borderColor={"borders.subtle"} rounded={"full"} bg={"white"}>
                     <ArrowCircleLeft2 size="32" color="#464B50" />
                   </IconButton>
-                  <Text fontWeight={"700"} fontSize={"30px"}>
+                  <Text fontWeight={"700"} fontSize={{ base: "15px", md: "30px" }}>
                     Afdeling kwaliteit
                   </Text>
                 </Flex>
